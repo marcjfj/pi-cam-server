@@ -2,6 +2,7 @@ const express = require('express')
 const app = express()
 const wss = require('express-ws')(app);
 const port = 3000
+const raspividStream = require('raspivid-stream');
 
 app.get('/', (req, res) => res.send('pi-spy'))
 
