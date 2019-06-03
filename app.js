@@ -106,6 +106,7 @@ app.ws('/stream', (ws, req) => {
     ws.on('close', () => {
         console.log('Client left');
         videoStream.removeAllListeners('data');
+        ws.removeAllListeners();
     });
 });
 
