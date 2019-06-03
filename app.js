@@ -21,21 +21,23 @@ pwm = new Pca9685Driver(options, function(err) {
  
     // Set channel 0 to turn on on step 42 and off on step 255
     // (with optional callback)
-    pwm.setPulseRange(0, 42, 255, function() {
-        if (err) {
-            console.error("Error setting pulse range.");
-        } else {
-            console.log("Pulse range set.");
-        }
-    });
+    // pwm.setPulseRange(0, 42, 255, function() {
+    //     if (err) {
+    //         console.error("Error setting pulse range.");
+    //     } else {
+    //         console.log("Pulse range set.");
+    //     }
+    // });
 
 
 });
 
+let servoPL = 1500;
+
 app.get('/servo', (req, res) => {
-    
-    pwm.setPulseLength(15, 1500);
-    res.send('servo');
+    servoPL +=10;
+    pwm.setPulseLength(15, servoPL);
+    res.send('servo set to '+servoPL);
 
 });
 
