@@ -32,11 +32,20 @@ pwm = new Pca9685Driver(options, function(err) {
 
 });
 
+app.use(function(req, res, next) {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+    next();
+});
+
 let servoPL = 1500;
+let servo2PL = 1500;
 let servoMin = 600;
 let servoMax = 2400;
 let servoMove = 200;
-app.get('/servo-plus', (req, res) => {
+
+
+app.get('/servo-up', (req, res, next) => {
     if ((servoPL + servoMove) <= (servoMax)){
         servoPL += servoMove;
             
@@ -46,7 +55,7 @@ app.get('/servo-plus', (req, res) => {
     res.send('servo set to '+servoPL);
 
 });
-app.get('/servo-minus', (req, res) => {
+app.get('/servo-down', (req, res, next) => {
     if ((servoPL - servoMove) > servoMin){
         servoPL -= servoMove;
     }
@@ -55,7 +64,28 @@ app.get('/servo-minus', (req, res) => {
 
 });
 
-app.get('/', (req, res) => res.send('pi-spy'))
+app.get('/servo-left', (req, res, next) => {
+    if ((servo2PL + servoMove) <= (servoMax)){
+        servo2PL += servoMove;
+            
+        }
+
+    pwm.setPulseLength(14, servoPL);
+    res.send('servo set to '+servoPL);
+
+});
+app.get('/servo-right', (req, res, next) => {
+    if ((servo2PL - servoMove) > servoMin){
+        servo2PL -= servoMove;
+    }
+    pwm.setPulseLength(14, servoPL);
+    res.send('servo set to '+servoPL);
+
+});
+
+
+
+app.get('/', (req, res, next) => res.send('pi-spy'))
 
 app.ws('/stream', (ws, req) => {
     console.log('Client connected');
