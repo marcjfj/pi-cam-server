@@ -35,20 +35,14 @@ pwm = new Pca9685Driver(options, function(err) {
 let servoPL = 1500;
 let servoMin = 600;
 let servoMax = 2400;
-let servoMove = 1500;
+let servoMove = 200;
 app.get('/servo-plus', (req, res) => {
-    if (servoPL < servoMax){
-        while (servoMove < (servoPL + 100)) {
-            setTimeout(() => {
-                 servoMove = servoPL + 10;
-                pwm.setPulseLength(15, servoMove);
-            }, 20);
+    if (servoPL <= (servoMax + servoMove)){
+        servoPL += servoMove;
             
         }
-        servoPL = servoMove;
-        
-    }
-    
+
+    pwm.setPulseLength(15, servoPL);
     res.send('servo set to '+servoPL);
 
 });
