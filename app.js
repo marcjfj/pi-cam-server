@@ -47,8 +47,8 @@ app.get('/servo-plus', (req, res) => {
 
 });
 app.get('/servo-minus', (req, res) => {
-    if (servoPL > servoMin){
-        servoPL -=100;
+    if ((servoPL - servoMove) > servoMin){
+        servoPL -= servoMove;
     }
     pwm.setPulseLength(15, servoPL);
     res.send('servo set to '+servoPL);
