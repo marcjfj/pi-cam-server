@@ -37,7 +37,7 @@ let servoMin = 600;
 let servoMax = 2400;
 let servoMove = 200;
 app.get('/servo-plus', (req, res) => {
-    if (servoPL <= (servoMax + servoMove)){
+    if ((servoPL + servoMove) <= (servoMax)){
         servoPL += servoMove;
             
         }
