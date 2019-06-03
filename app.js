@@ -34,8 +34,14 @@ pwm = new Pca9685Driver(options, function(err) {
 
 let servoPL = 1500;
 
-app.get('/servo', (req, res) => {
-    servoPL +=10;
+app.get('/servo-plus', (req, res) => {
+    servoPL +=100;
+    pwm.setPulseLength(15, servoPL);
+    res.send('servo set to '+servoPL);
+
+});
+app.get('/servo-minus', (req, res) => {
+    servoPL -=100;
     pwm.setPulseLength(15, servoPL);
     res.send('servo set to '+servoPL);
 
