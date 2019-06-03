@@ -70,16 +70,16 @@ app.get('/servo-left', (req, res, next) => {
             
         }
 
-    pwm.setPulseLength(14, servoPL);
-    res.send('servo set to '+servoPL);
+    pwm.setPulseLength(14, servo2PL);
+    res.send('servo set to '+servo2PL);
 
 });
 app.get('/servo-right', (req, res, next) => {
     if ((servo2PL - servoMove) > servoMin){
         servo2PL -= servoMove;
     }
-    pwm.setPulseLength(14, servoPL);
-    res.send('servo set to '+servoPL);
+    pwm.setPulseLength(14, servo2PL);
+    res.send('servo set to '+servo2PL);
 
 });
 
