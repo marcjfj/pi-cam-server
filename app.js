@@ -35,6 +35,7 @@ pwm = new Pca9685Driver(options, function(err) {
 app.get('/servo', (req, res) => {
     
     pwm.setPulseLength(15, 1500);
+    res.send('servo');
 
 });
 
