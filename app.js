@@ -38,7 +38,7 @@ let servoMax = 2400;
 let servoMove = servoPL;
 app.get('/servo-plus', (req, res) => {
     if (servoPL < servoMax){
-        while (servoMove <= (servoPL + 100)) {
+        while (servoMove < (servoPL + 100)) {
             setTimeout(() => {
                  servoMove = servoPL + 10;
                 pwm.setPulseLength(15, servoMove);
